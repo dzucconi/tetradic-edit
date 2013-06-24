@@ -38,7 +38,7 @@ $(function() {
     colors: {
       _0: pusher.color("red"),
       _1: pusher.color("green"),
-      linked: false
+      linked: true
     },
 
     fillPair: function(pair, color) {
