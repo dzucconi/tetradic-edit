@@ -33,14 +33,14 @@ $(function() {
     }
   }
 
-  var groups = ["base", "under", "over"].map(function(section) {
+  var groups = Object.keys(Drawing).map(function(section) {
     Drawing[section].group =
       two.makeGroup(Drawing[section]._0, Drawing[section]._1, Drawing[section]._2, Drawing[section]._3);
   });
 
   Drawing.base.group.fill = "#000";
 
-  var pairs = [0, 1, 2, 3].map(function(i) {
+  var pairs = [0, 0, 0, 0].map(function(_, i) {
     return [Drawing.under["_" + i], Drawing.over["_" + i]]
   });
 
