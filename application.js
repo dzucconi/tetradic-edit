@@ -9,9 +9,9 @@ $(function() {
     }
   },
 
-  two = new Two(stage.params).appendTo(stage.el);
+  two = new Two(stage.params).appendTo(stage.el),
 
-  window.Drawing = {
+  Drawing = {
     groups: {
       base: {
         _0: two.makePolygon(792,365, 499,72, 432,5, 365,72, 72,365, 5,432, 72,499, 365,792, 432,859, 499,792, 792,499, 859,432)
