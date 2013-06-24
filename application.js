@@ -1,66 +1,57 @@
 $(function() {
+  "use strict";
+
   var stage = {
     el: $("#render")[0],
-    unit: 600,
+    unit: 864,
     params: {
-      width: 600,
-      height: 600
+      width: 864,
+      height: 864
     }
   },
 
-  two = new Two(stage.params).appendTo(stage.el),
+  two = new Two(stage.params).appendTo(stage.el);
 
-  make = {
-    fold: function(size) {
-      return two.makePolygon(0,0, (size / 6), 0, size,(size - (size / 6)), size,size, 0,size, 0,0);
+  var Drawing = {
+    base: {
+      _0: two.makePolygon(5,432, 72,499, 72,365),
+      _1: two.makePolygon(859,432, 792,365, 792,499),
+      _2: two.makePolygon(432,859, 499,792, 365,792),
+      _3: two.makePolygon(432,5, 365,72, 499,72)
     },
-
-    triangle: function(size) {
-      return two.makePolygon(0,0, size,size, 0,size, 0,0);
+    under: {
+      _0: two.makePolygon(792,432, 792,365, 499,72, 432,72, 432,432),
+      _1: two.makePolygon(432,72, 365,72, 72,365, 72,432, 432,432),
+      _2: two.makePolygon(792,499, 792,432, 432,432, 432,792, 499,792),
+      _3: two.makePolygon(72,432, 72,499, 365,792, 432,792, 432,432)
+    },
+    over: {
+      _0: two.makePolygon(365,365, 72,365, 365,72),
+      _1: two.makePolygon(499,365, 792,365, 499,72),
+      _2: two.makePolygon(365,499, 72,499, 365,792),
+      _3: two.makePolygon(499,792, 792,499, 499,499)
     }
-  };
+  }
 
-  // Build Base
-  var _base = [1, 2, 3, 4].map(function(i) {
-    return make.fold(stage.unit / 2);
-  })
-
-  _base.map(function(fold) {
-    // fold.fill = "black"
+  var groups = ["base", "under", "over"].map(function(section) {
+    Drawing[section].group =
+      two.makeGroup(Drawing[section]._0, Drawing[section]._1, Drawing[section]._2, Drawing[section]._3);
   });
 
-  var base = two.makeGroup(_base);
+  Drawing.base.group.fill = "#000";
 
-  _base[0].translation.set(0, 0);
-  _base[1].translation.set(0, stage.unit / 2);
-  _base[2].translation.set(stage.unit / 2, 0);
-  _base[3].translation.set(stage.unit / 2, stage.unit / 2);
-
-  _base[0].rotation = Math.PI * -0.5;
-  _base[1].rotation = Math.PI * 1;
-  _base[2].rotation = Math.PI * 0.0;
-  _base[3].rotation = Math.PI * 0.5;
-
-  base.translation.set(stage.unit / 4, stage.unit / 4);
-
-  // Build top
-  var _top = [1, 2, 3, 4].map(function(i) {
-    return make.triangle(stage.unit / 2.5);
+  var pairs = [0, 1, 2, 3].map(function(i) {
+    return [Drawing.under["_" + i], Drawing.over["_" + i]]
   });
 
-  _top[0].translation.set(0, 0);
-  _top[1].translation.set(0, stage.unit / 2);
-  _top[2].translation.set(stage.unit / 2, 0);
-  _top[3].translation.set(stage.unit / 2, stage.unit / 2);
+  var fillPair = function(pair, color) {
+    pair.map(function(x) { x.fill = color; });
+  }
 
-  _top[0].rotation = Math.PI * -0.5;
-  _top[1].rotation = Math.PI * 1;
-  _top[2].rotation = Math.PI * 0.0;
-  _top[3].rotation = Math.PI * 0.5;
-
-  var top = two.makeGroup(_top);
-
-  top.translation.set(stage.unit / 4, stage.unit / 4);
+  fillPair(pairs[0], "green");
+  fillPair(pairs[1], "blue");
+  fillPair(pairs[2], "yellow");
+  fillPair(pairs[3], "red");
 
   two.update();
 });
