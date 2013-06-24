@@ -96,5 +96,6 @@ $(function() {
     Drawing.colors.linked = !$el.data("value");
     $el.data("value", Drawing.colors.linked);
     $el.text($el.data(Drawing.colors.linked.toString()));
+    $("#menu").toggleClass("is-linked");
   });
 });

@@ -21,6 +21,9 @@
     text-align: center;
     display: inline-block;
   }
+  .is-linked #c2 {
+    opacity: 0;
+  }
 
 a {
   font-size: 26px;
