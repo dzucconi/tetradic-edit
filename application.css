@@ -1,0 +1,14 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+#render {
+  margin: 1em;
+}
+
+svg {
+  border: 1px solid red;
+}
