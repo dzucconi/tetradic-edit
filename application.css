@@ -7,8 +7,24 @@
 
 #render {
   margin: 1em;
+  text-align: center;
 }
 
-svg {
-  border: 1px solid red;
+#menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: 2em;
+  line-height: 12px;
+}
+  #menu * {
+    text-align: center;
+    display: inline-block;
+  }
+
+a {
+  font-size: 26px;
+  width: 1em;
+  text-decoration: none;
+  color: #000;
 }
