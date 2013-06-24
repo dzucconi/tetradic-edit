@@ -48,10 +48,10 @@ $(function() {
     pair.map(function(x) { x.fill = color; });
   }
 
-  fillPair(pairs[0], "green");
-  fillPair(pairs[1], "blue");
-  fillPair(pairs[2], "yellow");
-  fillPair(pairs[3], "red");
+  fillPair(pairs[0], pusher.color("red").html());
+  fillPair(pairs[1], pusher.color("red").complement().html());
+  fillPair(pairs[2], pusher.color("green").html());
+  fillPair(pairs[3], pusher.color("green").complement().html());
 
   two.update();
 });
