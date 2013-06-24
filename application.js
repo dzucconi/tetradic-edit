@@ -3,7 +3,6 @@ $(function() {
 
   var stage = {
     el: $("#render")[0],
-    unit: 864,
     params: {
       width: 864,
       height: 864
