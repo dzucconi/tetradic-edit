@@ -4,25 +4,25 @@
     <meta charset="utf-8">
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-    <script src="vendor/json2.js"></script>
-    <script src="vendor/underscore-min.js"></script>
-    <script src="vendor/backbone-min.js"></script>
-    <script src="vendor/pusher.color.js"></script>
-    <script src="vendor/two.js"></script>
+    <script src="javascripts/vendor/json2.js"></script>
+    <script src="javascripts/vendor/underscore-min.js"></script>
+    <script src="javascripts/vendor/backbone-min.js"></script>
+    <script src="javascripts/vendor/pusher.color.js"></script>
+    <script src="javascripts/vendor/two.js"></script>
 
-    <script src="application.js"></script>
+    <script src="javascripts/application.js"></script>
+    <script src="javascripts/application/router.js"></script>
+    <script src="javascripts/application/views/interface.js"></script>
+    <script src="javascripts/application/views/drawing.js"></script>
+    <script src="javascripts/application/models/drawing.js"></script>
+    <script src="javascripts/application/models/color-set.js"></script>
 
     <link rel="stylesheet" type="text/css" href="application.css" />
   </head>
 
   <body>
-    <div id="menu" class="is-linked">
-      <input type="color" placeholder="Color" id="c1" class="color" data-color="_0">
-      <a id="linked" data-value=true data-false="⋈" data-true="⧓" href="#">⧓</a>
-      <input type="color" placeholder="Color" id="c2" class="color" data-color="_1">
-    </div>
-
-    <div id="render"></div>
+    <div id="interface" class="l-interface"></div>
+    <div id="drawing" class="l-drawing"></div>
   </body>
 </script>
 </html>

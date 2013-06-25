@@ -1,33 +1,52 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+
   -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
-#render {
+a {
+  text-decoration: none;
+  color: #000;
+}
+
+.l-drawing {
   margin: 1em;
   text-align: center;
 }
 
-#menu {
+.l-interface {
   position: fixed;
   top: 0;
   right: 0;
   padding: 2em;
   line-height: 12px;
 }
-  #menu * {
+
+.menu {
+  display: table;
+
+     -moz-user-select: none;
+  -webkit-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+  .menu > * {
+    display: table-cell;
     text-align: center;
-    display: inline-block;
-  }
-  .is-linked #c2 {
-    opacity: 0;
+    vertical-align: middle;
   }
 
-a {
+.toggler {
+  cursor: pointer;
   font-size: 26px;
-  width: 1em;
-  text-decoration: none;
-  color: #000;
+  width: 26px;
+  line-height: 0.9;
 }
+
+.is-linked > .secondary { opacity: 0; }
+
+.is-linked .unlinked,
+.is-unlinked .linked { display: none; }
