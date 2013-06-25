@@ -6,6 +6,14 @@
       this.listenTo(this.get("colors"), "change", this.paint);
     },
 
+    rotate: function() {
+      var model = this;
+
+      ["base", "over", "under"].forEach(function(x) {
+        model.get(x).rotation = 0.25 * Math.PI;
+      });
+    },
+
     // Draw initial figure after the two instance
     // is attached to the DOM
     draw: function(two) {
@@ -28,6 +36,11 @@
       model.set("pairs", model.get("under").map(function(_, i) {
         return [model.get("under")[i], model.get("over")[i]];
       }));
+
+      // Group
+      ["under", "over"].forEach(function(region) {
+        model.set(region, model.two.makeGroup(model.get(region)));
+      });
 
       model.paint();
     },
