@@ -25,6 +25,8 @@
 
     setupModels: function(primary, secondary) {
       if (typeof(primary) === "undefined") {
+        // Setup default color scheme if we aren't
+        // coming in from a route
         var colorSet = new App.Models.ColorSet({
           primary: pusher.color("#ff0000"),
           linked: true
