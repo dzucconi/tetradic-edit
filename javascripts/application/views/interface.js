@@ -30,6 +30,8 @@
       var $target = $(e.target);
 
       this.model.set($target.data("attr"), pusher.color(e.target.value));
+
+      App.mediator.trigger("color:change", e.target.value);
     },
 
     toggleLinked: function(e) {

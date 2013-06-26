@@ -3,14 +3,39 @@
 
   App.Routers.Router = Backbone.Router.extend({
     routes: {
-      "" : "index"
+      "": "index",
+      "iteration/:primary/:secondary": "index"
     },
 
-    index: function() {
-      var colorSet = new App.Models.ColorSet({
-        primary: pusher.color("#ff0000"),
-        linked: true
-      });
+    initialize: function() {
+      this.models = {};
+
+      this.listenTo(App.mediator, "color:change", this.updateUrl);
+    },
+
+    index: function(primary, secondary) {
+      this.setupModels(primary, secondary);
+
+      this.view = new App.Views.DrawingView({ model: this.models.drawing });
+      this.view.render();
+
+      this.interfaceView = new App.Views.InterfaceView({ model: this.models.colorSet });
+      this.interfaceView.render();
+    },
+
+    setupModels: function(primary, secondary) {
+      if (typeof(primary) === "undefined") {
+        var colorSet = new App.Models.ColorSet({
+          primary: pusher.color("#ff0000"),
+          linked: true
+        });
+      } else {
+        var colorSet = new App.Models.ColorSet({
+          primary: pusher.color(primary),
+          secondary: pusher.color(secondary),
+          linked: false
+        });
+      }
 
       var drawing = new App.Models.Drawing({
         width: 864,
@@ -36,14 +61,21 @@
               [499,792, 792,499, 499,499]
             ]
           }
-        },
+        }
       });
 
-      this.view = new App.Views.DrawingView({ model: drawing });
-      this.view.render();
+      this.models.drawing = drawing;
+      this.models.colorSet = colorSet;
+    },
 
-      this.interfaceView = new App.Views.InterfaceView({ model: colorSet });
-      this.interfaceView.render();
+    updateUrl: function() {
+      _.debounce(this.persist, 500).bind(this)();
+    },
+
+    persist: function() {
+      App.router.navigate("/iteration" +
+        "/" + this.models.colorSet.get("primary").hex6() +
+        "/" + this.models.colorSet.get("secondary").hex6(), { trigger: false, replace: true });
     }
   });
 }());
