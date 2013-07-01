@@ -17,16 +17,17 @@
       });
     },
 
-    increment45: function() {
-      var rot = this.model.get("rotation");
+    increment: function(degree) {
+      var rot = this.model.get("rotation"),
+          turns = (360 / degree);
 
-      if (rot >= 315) { return 0; };
+      if (rot >= (degree * (turns - 1))) { return 0; };
 
-      return (rot || 0) + 45;
+      return (rot || 0) + degree;
     },
 
     rotate: function() {
-      this.model.set("rotation", this.increment45());
+      this.model.set("rotation", this.increment(45));
       this.renderRotation();
 
       App.mediator.trigger("rotation:change");
