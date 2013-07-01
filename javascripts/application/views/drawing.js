@@ -54,6 +54,7 @@
 
     postRender: function() {
       this.two.appendTo(this.$el.find("#render")[0]);
+
       this.model.draw(this.two);
       this.renderRotation();
     }
