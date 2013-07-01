@@ -10,8 +10,10 @@
     initialize: function() {
       this.models = {};
 
-      this.listenTo(App.mediator, "color:change", this.updateUrl);
-      this.listenTo(App.mediator, "rotation:change", this.updateUrl);
+      var updateUrl = _.debounce(this.persist, 500).bind(this);
+
+      this.listenTo(App.mediator, "color:change", updateUrl);
+      this.listenTo(App.mediator, "rotation:change", updateUrl);
     },
 
     index: function(primary, secondary, rotation) {
@@ -43,7 +45,7 @@
       var drawing = new App.Models.Drawing({
         width: 864,
         height: 864,
-        rotation: parseInt(rotation),
+        rotation: (parseInt(rotation) || 0),
 
         colors: colorSet,
 
@@ -70,10 +72,6 @@
 
       this.models.drawing = drawing;
       this.models.colorSet = colorSet;
-    },
-
-    updateUrl: function() {
-      _.debounce(this.persist, 500).bind(this)();
     },
 
     persist: function() {
