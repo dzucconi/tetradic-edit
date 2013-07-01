@@ -51,11 +51,9 @@ a {
 .is-linked .unlinked,
 .is-unlinked .linked { display: none; }
 
-
-#render.rotate45 {
-  -webkit-transform: rotate(45deg);
-     -moz-transform: rotate(45deg);
-      -ms-transform: rotate(45deg);
-       -o-transform: rotate(45deg);
-          transform: rotate(45deg);
+#render {
+  -webkit-transition: all 0.5s;
+     -moz-transition: all 0.5s;
+       -o-transition: all 0.5s;
+          transition: all 0.5s;
 }

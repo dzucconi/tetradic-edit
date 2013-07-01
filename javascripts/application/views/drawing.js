@@ -6,11 +6,37 @@
 
     template: _.template("<div id='render'></div>"),
 
+    events: {
+      "click": "rotate"
+    },
+
     initialize: function() {
       this.two = new Two({
         width: this.model.get("width"),
         height: this.model.get("height")
       });
+    },
+
+    increment45: function() {
+      var rot = this.model.get("rotation");
+
+      if (rot === 315) { return 0; };
+
+      return (rot || 0) + 45;
+    },
+
+    rotate: function() {
+      var model = this.model;
+
+      model.set("rotation", this.increment45());
+
+      var rules = ["-webkit-", "-moz-", "-ms-", "-o-", ""].reduce(function(obj, vendor) {
+        obj[vendor + "transform"] = "rotate(" + model.get("rotation") + "deg)";
+
+        return obj;
+      }, {});
+
+      this.$el.find("#render").css(rules);
     },
 
     render: function() {
