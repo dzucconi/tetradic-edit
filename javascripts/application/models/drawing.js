@@ -48,13 +48,11 @@
     // Converts a flat Array of pairs of integers
     // to an Array of Two.Vector pairs
     vectorize: function(xs) {
-      var vectors = [];
-
-      for(var i = 0; i < xs.length; i += 2) {
-        vectors.push(new Two.Vector(xs[i], xs[i + 1]));
-      };
-
-      return vectors;
+      return _.tap([], function(res) {
+        for(var i = 0; i < xs.length; i += 2) {
+          res.push(new Two.Vector(xs[i], xs[i + 1]));
+        };
+      });
     },
 
     fillPair: function(pair, color) {
