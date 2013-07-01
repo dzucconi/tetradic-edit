@@ -20,15 +20,20 @@
     increment45: function() {
       var rot = this.model.get("rotation");
 
-      if (rot === 315) { return 0; };
+      if (rot >= 315) { return 0; };
 
       return (rot || 0) + 45;
     },
 
     rotate: function() {
-      var model = this.model;
+      this.model.set("rotation", this.increment45());
+      this.renderRotation();
 
-      model.set("rotation", this.increment45());
+      App.mediator.trigger("rotation:change");
+    },
+
+    renderRotation: function() {
+      var model = this.model;
 
       var rules = ["-webkit-", "-moz-", "-ms-", "-o-", ""].reduce(function(obj, vendor) {
         obj[vendor + "transform"] = "rotate(" + model.get("rotation") + "deg)";
@@ -49,6 +54,7 @@
     postRender: function() {
       this.two.appendTo(this.$el.find("#render")[0]);
       this.model.draw(this.two);
+      this.renderRotation();
     }
   });
 }());

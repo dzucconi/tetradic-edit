@@ -4,17 +4,18 @@
   App.Routers.Router = Backbone.Router.extend({
     routes: {
       "": "index",
-      "iteration/:primary/:secondary": "index"
+      "iteration/:primary/:secondary/:rotation": "index"
     },
 
     initialize: function() {
       this.models = {};
 
       this.listenTo(App.mediator, "color:change", this.updateUrl);
+      this.listenTo(App.mediator, "rotation:change", this.updateUrl);
     },
 
-    index: function(primary, secondary) {
-      this.setupModels(primary, secondary);
+    index: function(primary, secondary, rotation) {
+      this.setupModels(primary, secondary, rotation);
 
       this.view = new App.Views.DrawingView({ model: this.models.drawing });
       this.view.render();
@@ -23,8 +24,8 @@
       this.interfaceView.render();
     },
 
-    setupModels: function(primary, secondary) {
-      if (typeof(primary) === "undefined") {
+    setupModels: function(primary, secondary, rotation) {
+      if (typeof(secondary) === "undefined") {
         // Setup default color scheme if we aren't
         // coming in from a route
         var colorSet = new App.Models.ColorSet({
@@ -42,6 +43,7 @@
       var drawing = new App.Models.Drawing({
         width: 864,
         height: 864,
+        rotation: parseInt(rotation),
 
         colors: colorSet,
 
@@ -77,7 +79,8 @@
     persist: function() {
       App.router.navigate("/iteration" +
         "/" + this.models.colorSet.get("primary").hex6() +
-        "/" + this.models.colorSet.get("secondary").hex6(), { trigger: false, replace: true });
+        "/" + this.models.colorSet.get("secondary").hex6() +
+        "/" + this.models.drawing.get("rotation"), { trigger: false, replace: true });
     }
   });
 }());
