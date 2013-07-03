@@ -36,7 +36,7 @@
     renderRotation: function() {
       var model = this.model;
 
-      var rules = ["-webkit-", "-moz-", "-ms-", "-o-", ""].reduce(function(obj, vendor) {
+      var rules = _.reduce(["-webkit-", "-moz-", "-ms-", "-o-", ""], function(obj, vendor) {
         obj[vendor + "transform"] = "rotate(" + model.get("rotation") + "deg)";
 
         return obj;

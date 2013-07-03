@@ -9,7 +9,7 @@
     rotate: function() {
       var model = this;
 
-      ["base", "over", "under"].forEach(function(x) {
+      _.each(["base", "over", "under"], function(x) {
         model.get(x).rotation = 0.25 * Math.PI;
       });
     },
@@ -26,19 +26,19 @@
       model.get("base").stroke = "#777";
 
       // Draw regions
-      Object.keys(model.get("data").regions).map(function(key) {
-        model.set(key, model.get("data").regions[key].map(function(xs) {
+      _.map(Object.keys(model.get("data").regions), function(key) {
+        model.set(key, _.map(model.get("data").regions[key], function(xs) {
           return model.two.makePolygon(model.vectorize(xs)).noStroke();
         }));
       });
 
       // Pair up corresponding under and over sections
-      model.set("pairs", model.get("under").map(function(_, i) {
+      model.set("pairs", _.map(model.get("under"), function(_, i) {
         return [model.get("under")[i], model.get("over")[i]];
       }));
 
       // Group
-      ["under", "over"].forEach(function(region) {
+      _.each(["under", "over"], function(region) {
         model.set(region, model.two.makeGroup(model.get(region)));
       });
 
